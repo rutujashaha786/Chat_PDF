@@ -36,11 +36,11 @@ def get_pdf_text(pdf_docs):
                 if page_text:
                     pdf_text += page_text
         except PdfReadError as e:
-            read_failed_pdfs.append(f"{pdf.name} (Error: {str(e)})")
+            read_failed_pdfs.append(pdf.name)
             st.error(f"❌ Failed to read {pdf.name}: {str(e)}")
             continue
         except Exception as e:
-            read_failed_pdfs.append(f"{pdf.name} (Error: {str(e)})")
+            read_failed_pdfs.append(pdf.name)
             st.error(f"❌ Unexpected error reading {pdf.name}: {str(e)}")
             continue
 
@@ -57,9 +57,6 @@ def get_text_chunks(text):
     return chunks
 
 def get_vector_store(text_chunks):
-    # if os.path.exists("faiss_index"):
-    #     shutil.rmtree("faiss_index")
-
     embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
     vector_store = FAISS.from_texts(text_chunks, embedding=embeddings)
     vector_store.save_local("faiss_index")
@@ -75,11 +72,7 @@ def get_conversational_chain():
     """
     model = ChatGoogleGenerativeAI(model = "gemini-1.5-flash-latest", temperature = 0.3)
     prompt = PromptTemplate(input_variables=["context", "question"], template = prompt_template)
-    # print("prompt test...", prompt.format(context=docs, question=user_question))
-    # chain = load_qa_chain(model, prompt = prompt, chain_type="stuff")
-
     stuff_chain = create_stuff_documents_chain(model, prompt)
-
     return stuff_chain
 
 def process_user_input(user_question):
@@ -107,20 +100,15 @@ def main():
     st.set_page_config(page_title="Chat With PDF", page_icon=":books:")
     st.header("Chat with PDF using Gemini :books:")
 
-    user_question = st.text_input("Ask a question from your PDF Files:", key="widget", on_change=submit)
+    st.text_input("Ask a question from your PDF Files:", key="widget", on_change=submit)
     user_question = st.session_state.user_text
 
     if user_question:
-        # st.write("***Question***:", user_question)
         process_user_input(user_question)
 
     with st.sidebar:
         st.title("Your documents")
         pdf_docs = st.file_uploader("Upload your PDF Files and Click on the Submit & Process Button", accept_multiple_files=True, type="pdf")
-        # with st.form("pdf_upload_form"):
-        #     pdf_docs = st.file_uploader("Upload your PDF Files and Click on the Submit & Process Button", accept_multiple_files=True, type="pdf")
-        #     submitted = st.form_submit_button("Submit & Process")
-
         
         if st.button("Submit & Process"):
             if os.path.exists("faiss_index"):
