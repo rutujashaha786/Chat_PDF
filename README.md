@@ -12,7 +12,7 @@ This project allows you to upload PDFs, process their text, and interactively as
 1. #### Clone the Repository:
 
     ```bash
-    git clone [https://github.com/rutujashaha786/Chat_PDF.git]
+    git clone https://github.com/rutujashaha786/Chat_PDF.git
     cd yourprojectname
     ```
 2. #### Set Up a Virtual Environment:
