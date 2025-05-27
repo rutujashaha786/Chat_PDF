@@ -3,10 +3,10 @@
 This project allows you to upload PDFs, process their text, and interactively ask questions about the content using Google Generative AI (`gemini-flash`). It uses Langchain for text processing, FAISS for vector storage, and Streamlit for the user interface.
 
 ## Features
-- ** 📄 Upload and Process PDF Files:** Extracts text from PDFs and splits it into manageable chunks for querying.
-- ** 🤖 Ask Questions:** Interact with the text using natural language queries powered by Google Generative AI (`gemini-flash`).
-- ** 🧠 Vector Store with FAISS:** Efficient similarity search over processed text chunks.
-- ** 🔥 Streamlit Web App:** User-friendly interface to upload PDFs and ask questions directly.
+- **📄 Upload and Process PDF Files:** Extracts text from PDFs and splits it into manageable chunks for querying.
+- **🤖 Ask Questions:** Interact with the text using natural language queries powered by Google Generative AI (`gemini-flash`).
+- **🧠 Vector Store with FAISS:** Efficient similarity search over processed text chunks.
+- **🔥 Streamlit Web App:** User-friendly interface to upload PDFs and ask questions directly.
 
 ## 🛠️ Installation
 1. #### Clone the Repository:
