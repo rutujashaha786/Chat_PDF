@@ -70,7 +70,7 @@ def get_conversational_chain():
 
     Answer:
     """
-    model = ChatGoogleGenerativeAI(model = "gemini-1.5-flash-latest", temperature = 0.3)
+    model = ChatGoogleGenerativeAI(model = "gemini-2.0-flash", temperature = 0.3)
     prompt = PromptTemplate(input_variables=["context", "question"], template = prompt_template)
     stuff_chain = create_stuff_documents_chain(model, prompt)
     return stuff_chain
@@ -108,13 +108,13 @@ def main():
 
     with st.sidebar:
         st.title("Your documents")
-        pdf_docs = st.file_uploader("Upload your PDF Files and Click on the Submit & Process Button", accept_multiple_files=True, type="pdf")
+        pdf_docs = st.file_uploader("Upload your PDF Files and Click on 'Submit & Process' Button", accept_multiple_files=True, type="pdf")
         
         if st.button("Submit & Process"):
             if os.path.exists("faiss_index"):
                 shutil.rmtree("faiss_index")
             if not pdf_docs:
-                st.error("❌ Please upload at least one PDF file.")
+                st.error("❌ Please upload at least one PDF file to process.")
             else:
                 with st.spinner("Processing..."):
                     raw_text, scanned_pdfs, read_failed_pdfs = get_pdf_text(pdf_docs)
