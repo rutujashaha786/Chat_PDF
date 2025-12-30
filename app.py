@@ -58,7 +58,7 @@ def get_text_chunks(text):
     return chunks
 
 def get_vector_store(text_chunks):
-    embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
+    embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
     vector_store = FAISS.from_texts(text_chunks, embedding=embeddings)
     vector_store.save_local("faiss_index")
 
@@ -71,7 +71,7 @@ def get_conversational_chain():
 
     Answer:
     """
-    model = ChatGoogleGenerativeAI(model = "gemini-2.0-flash", temperature = 0.3)
+    model = ChatGoogleGenerativeAI(model = "gemini-2.5-flash-lite", temperature = 0.3)
     prompt = PromptTemplate(input_variables=["context", "question"], template = prompt_template)
     stuff_chain = create_stuff_documents_chain(model, prompt)
     return stuff_chain
@@ -82,8 +82,8 @@ def process_user_input(user_question):
         return
 
     try:
-        embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
-        new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
+        embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+        new_db = FAISS.load_local("faiss_index", embeddings)
         docs = new_db.similarity_search(user_question, k=5)
 
         chain = get_conversational_chain()
