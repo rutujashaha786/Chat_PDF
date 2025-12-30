@@ -5,4 +5,3 @@ streamlit
 python-dotenv
 PyPDF2
 google-generativeai
-sentence-transformers

@@ -58,7 +58,7 @@ def get_text_chunks(text):
     return chunks
 
 def get_vector_store(text_chunks):
-    embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+    embeddings = GoogleGenerativeAIEmbeddings(model="models/text-embedding-004")
     vector_store = FAISS.from_texts(text_chunks, embedding=embeddings)
     vector_store.save_local("faiss_index")
 
@@ -82,7 +82,7 @@ def process_user_input(user_question):
         return
 
     try:
-        embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+        embeddings = GoogleGenerativeAIEmbeddings(model="models/text-embedding-004")
         new_db = FAISS.load_local("faiss_index", embeddings)
         docs = new_db.similarity_search(user_question, k=5)
 
