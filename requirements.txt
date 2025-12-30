@@ -1,9 +1,8 @@
-python-dotenv
-streamlit
-google-generativeai
-PyPDF2
-langchain_google_genai
-langchain
-langchain_community
+langchain==0.0.354
+langchain-google-genai==0.0.8
 faiss-cpu
+streamlit
+python-dotenv
+PyPDF2
+google-generativeai
 sentence-transformers
