@@ -18,7 +18,7 @@ This project allows you to upload PDFs, process their text, and interactively as
 2. #### Set Up a Virtual Environment:
 
     ```bash
-    python3 -m venv venv
+    python3.11 -m venv venv
     source venv/bin/activate  # On Windows use `venv\Scripts\activate`
     ```
 
