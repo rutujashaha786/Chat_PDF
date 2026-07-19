@@ -104,7 +104,8 @@ def main():
     user_question = st.session_state.user_text
 
     if user_question:
-        process_user_input(user_question)
+        with st.spinner("🤖 Thinking..."):
+            process_user_input(user_question)
 
     with st.sidebar:
         st.title("Your documents")
